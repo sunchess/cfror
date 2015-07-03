@@ -1,10 +1,10 @@
 .bundle/
 log/*.log
 pkg/
-test/dummy/db/*.sqlite3
-test/dummy/db/*.sqlite3-journal
-test/dummy/log/*.log
-test/dummy/tmp/
-test/dummy/.sass-cache
+spec/cfror/db/*.sqlite3
+spec/cfror/db/*.sqlite3-journal
+spec/cfror/log/*.log
+spec/cfror/tmp/
+spec/cfror/.sass-cache
 *.swp
 *.swo
