@@ -1,5 +1,4 @@
-require "cfror/version"
+require "cfror/engine"
 
 module Cfror
-  # Your code goes here...
 end
