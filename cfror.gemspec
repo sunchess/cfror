@@ -7,11 +7,11 @@ require "cfror/version"
 Gem::Specification.new do |s|
   s.name        = "cfror"
   s.version     = Cfror::VERSION
-  s.authors     = ["Александр Дмитриев"]
-  s.email       = ["alex@devmen.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Cfror."
-  s.description = "TODO: Description of Cfror."
+  s.authors     = ["Alexander Dmitriev"]
+  s.email       = ["alexanderdmv@gmail.com"]
+  s.homepage    = "https://github.com/sunchess/cfror"
+  s.summary     = "Cfror add custom fields to rails model."
+  s.description = "Cfror add custom fields to rails model."
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
