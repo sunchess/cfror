@@ -1,6 +1,6 @@
 # Custom Fields Ruby on Rails
 
-Add custom field functional to yours Rails app!
+Add custom field functional to your Rails app!
 
   - `gem 'cfror'`
   - `bundle`
