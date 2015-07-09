@@ -1,6 +1,6 @@
-class CreateCfrorTexts < ActiveRecord::Migration
+class CreateCfrorDatetimes < ActiveRecord::Migration
   def change
-    create_table :cfror_texts do |t|
+    create_table :cfror_datetimes do |t|
       t.integer :field_id
       t.index :field_id
 
@@ -11,9 +11,8 @@ class CreateCfrorTexts < ActiveRecord::Migration
       t.index :dataable_id
 
       t.index [:dataable_type, :dataable_id]
-
       
-      t.text :body
+      t.datetime :body
     end
   end
 end

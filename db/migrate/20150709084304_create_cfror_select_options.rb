@@ -1,6 +1,6 @@
-class CreateCfrorTexts < ActiveRecord::Migration
+class CreateCfrorSelectOptions < ActiveRecord::Migration
   def change
-    create_table :cfror_texts do |t|
+    create_table :cfror_select_options do |t|
       t.integer :field_id
       t.index :field_id
 
@@ -10,10 +10,9 @@ class CreateCfrorTexts < ActiveRecord::Migration
       t.integer :dataable_id
       t.index :dataable_id
 
-      t.index [:dataable_type, :dataable_id]
+      t.index [:dataable_type, :dataable_id]     
 
-      
-      t.text :body
+      t.string :body
     end
   end
 end

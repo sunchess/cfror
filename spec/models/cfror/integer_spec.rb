@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 module Cfror
-  describe String do
+  describe Integer do
     before do
-      @obj = Cfror::String.new
+      @obj = Cfror::Integer.new
     end
-    
+
     it{expect(@obj).to respond_to :body}
     it{expect(@obj).to respond_to :field}
     it{expect(@obj).to respond_to :dataable}

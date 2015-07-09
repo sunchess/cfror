@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 module Cfror
-  describe String do
+  describe Option do
     before do
-      @obj = Cfror::String.new
+      @obj = Cfror::Option.new
     end
-    
-    it{expect(@obj).to respond_to :body}
+
+    it{expect(@obj).to respond_to :select_option}
     it{expect(@obj).to respond_to :field}
     it{expect(@obj).to respond_to :dataable}
   end

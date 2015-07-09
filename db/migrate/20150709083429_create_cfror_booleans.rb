@@ -1,6 +1,6 @@
-class CreateCfrorTexts < ActiveRecord::Migration
+class CreateCfrorBooleans < ActiveRecord::Migration
   def change
-    create_table :cfror_texts do |t|
+    create_table :cfror_booleans do |t|
       t.integer :field_id
       t.index :field_id
 
@@ -12,8 +12,7 @@ class CreateCfrorTexts < ActiveRecord::Migration
 
       t.index [:dataable_type, :dataable_id]
 
-      
-      t.text :body
+      t.boolean :body
     end
   end
 end

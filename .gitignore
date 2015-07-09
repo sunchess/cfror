@@ -8,3 +8,4 @@ spec/cfror/tmp/
 spec/cfror/.sass-cache
 *.swp
 *.swo
+cfror.sublime*

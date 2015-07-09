@@ -8,5 +8,6 @@ module Cfror
 
     it{expect(@obj).to respond_to :body}
     it{expect(@obj).to respond_to :field}
+    it{expect(@obj).to respond_to :dataable}
   end
 end

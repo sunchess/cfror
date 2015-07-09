@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 module Cfror
-  describe String do
+  describe Datetime do
     before do
-      @obj = Cfror::String.new
+      @obj = Cfror::Datetime.new
     end
     
     it{expect(@obj).to respond_to :body}
