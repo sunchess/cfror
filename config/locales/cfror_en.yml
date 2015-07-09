@@ -1,0 +1,10 @@
+en:
+  cfror: 
+    field_type:
+      string: String
+      text:  Text
+      integer: Integer
+      boolean: Boolean
+      date: Date
+      datetime: Date and Time
+      option: Select

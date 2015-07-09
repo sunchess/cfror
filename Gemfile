@@ -15,4 +15,5 @@ gemspec
 
 gem "rspec-rails", "~> 2.12.2"
 gem "factory_girl_rails", "~> 4.0"
+gem "carrierwave", '~> 0.10.0'
 gem "minitest"

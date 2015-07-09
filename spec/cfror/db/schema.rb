@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709084409) do
+ActiveRecord::Schema.define(version: 20150709131240) do
 
   create_table "cfror_booleans", force: :cascade do |t|
     t.integer "field_id"
@@ -60,6 +60,18 @@ ActiveRecord::Schema.define(version: 20150709084409) do
   add_index "cfror_fields", ["fieldable_id"], name: "index_cfror_fields_on_fieldable_id"
   add_index "cfror_fields", ["fieldable_type", "fieldable_id"], name: "index_cfror_fields_on_fieldable_type_and_fieldable_id"
   add_index "cfror_fields", ["fieldable_type"], name: "index_cfror_fields_on_fieldable_type"
+
+  create_table "cfror_images", force: :cascade do |t|
+    t.integer "field_id"
+    t.string  "dataable_type"
+    t.integer "dataable_id"
+    t.string  "body"
+  end
+
+  add_index "cfror_images", ["dataable_id"], name: "index_cfror_images_on_dataable_id"
+  add_index "cfror_images", ["dataable_type", "dataable_id"], name: "index_cfror_images_on_dataable_type_and_dataable_id"
+  add_index "cfror_images", ["dataable_type"], name: "index_cfror_images_on_dataable_type"
+  add_index "cfror_images", ["field_id"], name: "index_cfror_images_on_field_id"
 
   create_table "cfror_integers", force: :cascade do |t|
     t.integer "field_id"

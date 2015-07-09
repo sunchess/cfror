@@ -7,12 +7,21 @@ Add custom fields functional to your Rails app!
   - `rake railties:install:migrations`
   - `rake db:migrate`
 
+## Install
+
+```ruby
+  gem 'cfror'
+```
+
+```ruby
+  bundle
+```
 And now you can put to the some model.
 
 ```ruby
  has_many :fields, as: :fieldable, class_name: Cfror::Field
 ```
-Cfror::Field has Integer String Text Image and Set column types
+Cfror::Field has Integer, String, Text, Image, Date, Datetime and Set column types
 
 ## It is alfa version now!
 

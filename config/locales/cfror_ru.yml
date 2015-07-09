@@ -1,0 +1,10 @@
+ru:
+  cfror: 
+    field_type:
+      string: Строка
+      text:  Текст
+      integer: Число
+      boolean: 'Да/Нет'
+      date: Дата
+      datetimes: Дата и время
+      option: Список
