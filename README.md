@@ -2,19 +2,12 @@
 
 Add custom fields functional to your Rails app!
 
-  - `gem 'cfror'`
-  - `bundle`
-  - `rake railties:install:migrations`
-  - `rake db:migrate`
-
-## Install
+## Installation
 
 ```ruby
   gem 'cfror'
-```
-
-```ruby
   bundle
+  rake db:migrate
 ```
 And now you can put to the some model.
 
