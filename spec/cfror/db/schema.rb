@@ -52,9 +52,9 @@ ActiveRecord::Schema.define(version: 20150710105912) do
   create_table "cfror_fields", force: :cascade do |t|
     t.string  "fieldable_type"
     t.integer "fieldable_id"
-    t.integer "field_type"
     t.string  "title"
     t.string  "name"
+    t.integer "field_type"
   end
 
   add_index "cfror_fields", ["fieldable_id"], name: "index_cfror_fields_on_fieldable_id"

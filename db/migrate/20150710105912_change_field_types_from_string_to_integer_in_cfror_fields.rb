@@ -1,5 +1,11 @@
 class ChangeFieldTypesFromStringToIntegerInCfrorFields < ActiveRecord::Migration
-  def change
-    change_column :cfror_fields, :field_type, :integer #'integer USING CAST(field_types AS integer)'
+  def up 
+    remove_column :cfror_fields, :field_type
+    add_column :cfror_fields, :field_type, :integer
+  end
+
+  def down
+    remove_column :cfror_fields, :field_type
+    add_column :cfror_fields, :field_type, :string
   end
 end
