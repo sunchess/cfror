@@ -1,6 +1,6 @@
 module Cfror
   class Field < ActiveRecord::Base
-    enum field_type: [ :string, :text, :integer, :boolean, :date, :option, :image ]
+    enum field_type: [ :string, :text, :integer, :boolean, :date, :option, :image, :datetime ]
 
     belongs_to :fieldable, polymorphic: true
 
