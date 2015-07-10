@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cfror (0.0.2)
+    cfror (0.0.3)
       rails (~> 4.2)
 
 GEM

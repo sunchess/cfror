@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150709131240) do
+ActiveRecord::Schema.define(version: 20150710105912) do
 
   create_table "cfror_booleans", force: :cascade do |t|
     t.integer "field_id"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20150709131240) do
   create_table "cfror_fields", force: :cascade do |t|
     t.string  "fieldable_type"
     t.integer "fieldable_id"
-    t.string  "field_type"
+    t.integer "field_type"
     t.string  "title"
     t.string  "name"
   end
@@ -111,16 +111,26 @@ ActiveRecord::Schema.define(version: 20150709131240) do
 
   create_table "cfror_strings", force: :cascade do |t|
     t.integer "field_id"
+    t.string  "dataable_type"
+    t.integer "dataable_id"
     t.string  "body"
   end
 
+  add_index "cfror_strings", ["dataable_id"], name: "index_cfror_strings_on_dataable_id"
+  add_index "cfror_strings", ["dataable_type", "dataable_id"], name: "index_cfror_strings_on_dataable_type_and_dataable_id"
+  add_index "cfror_strings", ["dataable_type"], name: "index_cfror_strings_on_dataable_type"
   add_index "cfror_strings", ["field_id"], name: "index_cfror_strings_on_field_id"
 
   create_table "cfror_texts", force: :cascade do |t|
     t.integer "field_id"
+    t.string  "dataable_type"
+    t.integer "dataable_id"
     t.text    "body"
   end
 
+  add_index "cfror_texts", ["dataable_id"], name: "index_cfror_texts_on_dataable_id"
+  add_index "cfror_texts", ["dataable_type", "dataable_id"], name: "index_cfror_texts_on_dataable_type_and_dataable_id"
+  add_index "cfror_texts", ["dataable_type"], name: "index_cfror_texts_on_dataable_type"
   add_index "cfror_texts", ["field_id"], name: "index_cfror_texts_on_field_id"
 
 end
