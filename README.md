@@ -6,9 +6,13 @@ Add custom fields functional to your Rails app!
 
 ```ruby
   gem 'cfror'
+```
+
+```bash
   bundle
   rake db:migrate
 ```
+
 And now you can put to the some model.
 
 ```ruby
