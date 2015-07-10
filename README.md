@@ -1,4 +1,4 @@
-# Custom Fields Ruby on Rails
+# Custom Fields for Ruby on Rails
 
 Add custom fields functional to your Rails app!
 
@@ -12,18 +12,26 @@ Add custom fields functional to your Rails app!
 And now you can put to the some model.
 
 ```ruby
- has_many :fields, as: :fieldable, class_name: Cfror::Field
+  class Site < ActiveRecord::Base
+    has_many :fields, as: :fieldable, class_name: Cfror::Field
+  end
 ```
 
-Put to controller
+Put to your controller
 ```ruby
   def new
     @site = Site.new
+    gon.fields = @site.fields
+  end
+
+  def edit
+    @site = Site.find(params[:id])
+    gon.fields = @site.fields
   end
 ```
 
 
-In view(real slim example)
+And in view (real slim and angular example) 
 
 ```slim
    = form_for @site do |f|
@@ -33,7 +41,7 @@ In view(real slim example)
             = f.text_field :title
       .well.well-light.well-sm.no-margin.no-padding.mb20px
         .smart-form
-          h3.padding-20 Поля 
+          h3.padding-20 Fields 
           fieldset.padding-20 ng-repeat="field in fields" ng-hide="field._destroy" ng-init='pidx = $index'
             = f.fields_for :fields, Cfror::Field.new, child_index: '{{pidx}}'do |ef|
               = ef.hidden_field :id, 'ng-if'=>"field.id", 'value'=>'{{field.id}}'
@@ -83,6 +91,11 @@ In view(real slim example)
 Cfror::Field has Integer, String, Text, Image, Date, Datetime and Set column types
 
 ## It is alfa version now!
+
+
+## TODO
+Make a view jquery helper for rendering nested models
+Make fields helper by field types
 
 ## Contributing
 
