@@ -21,7 +21,7 @@ Put to your controller
 ```ruby
   def new
     @site = Site.new
-    gon.fields = @site.fields
+    gon.fields = @site.fields #see the gon gem
   end
 
   def edit
@@ -94,8 +94,9 @@ Cfror::Field has Integer, String, Text, Image, Date, Datetime and Set column typ
 
 
 ## TODO
-Make a view jquery helper for rendering nested models
-Make fields helper by field types
+
+- Make a view jquery helper for rendering nested models
+- Make fields helper by field types
 
 ## Contributing
 
