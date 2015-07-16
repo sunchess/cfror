@@ -6,6 +6,6 @@ ru:
       integer: Число
       boolean: 'Да/Нет'
       date: Дата
-      datetimes: Дата и время
+      datetime: Дата и время
       option: Список
       image: Изображение
