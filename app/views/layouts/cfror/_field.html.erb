@@ -1,0 +1,32 @@
+<label>
+  <%= field.title %>
+  <br/>
+  <%- case field.field_type
+     when 'integer' %>
+       <input type="number" name="cfror_fields[<%= field.id %>]" value="<%= field.integers.find_by(dataable: model).try(:body) %>" id="cfror_fields_<%=field.id%>" class="cfror_number_input"/>
+    <%- when 'string' %>
+       <input type="text" name="cfror_fields[<%= field.id %>]" value="<%= field.strings.find_by(dataable: model).try(:body) %>" id="cfror_fields_<%=field.id%>" class="cfror_text_input"/>
+    <%- when 'boolean' %>
+       <input type="checkbox" name="cfror_fields[<%= field.id %>]" value="<%= field.booleans.find_by(dataable: model).try(:body) %>" id="cfror_fields_<%=field.id%>" class="cfror_checkbox_input"/>
+    <%- when 'text' %>
+       <textarea name="cfror_fields[<%= field.id %>]" class="cfror_textarea" id="cfror_fields_<%=field.id%>"><%= field.texts.find_by(dataable: model).try(:body) %></textarea>
+    <%- when 'date' %>
+       <input type="date" name="cfror_fields[<%= field.id %>]" value="<%= field.dates.find_by(dataable: model).try(:body) %>" id="cfror_fields_<%=field.id%>" class="cfror_date_input"/>
+    <%- when 'datetime' %>
+       <input type="date" name="cfror_fields[<%= field.id %>]" value="<%= field.datetimes.find_by(dataable: model).try(:body) %>" id="cfror_fields_<%=field.id%>" class="cfror_datetime_input"/>
+    <%- when 'image' %>
+       <input type="file" name="cfror_fields[<%= field.id %>]" value="<%= field.images.find_by(dataable: model).try(:body) %>" id="cfror_fields_<%=field.id%>" class="cfror_file_input"/>
+    <%- when 'option' %>
+      <%-  value_option = field.options.find_by(dataable: model).try(:select_option_id) %>
+      <select name="cfror_fields[<%= field.id %>" id="cfror_fields_<%=field.id%>" class="cfror_select">
+        <% field.select_options.order(:id).each do |option|  %>
+          <% if value_option and option.id.to_i == value_option.to_i %>
+            <option value="<%= option.id %>" selected='selected'><%= option.body %></option>
+          <% else %>
+            <option value="<%= option.id %>"><%= option.body %></option>
+          <% end %>
+        <% end %>
+      </select>
+  <% end %>
+</label>
+
