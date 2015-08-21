@@ -18,13 +18,10 @@ And now you can put to a model include Cfror::Fields.
 ```ruby
   class Site < ActiveRecord::Base
     include Cfror::Fields
-    #or
-    #has_many :fields, as: :fieldable, class_name: Cfror::Field
-    #accepts_nested_attributes_for :fields, allow_destroy: true, reject_if: :all_blank
   end
 ```
 
-Put to your controller
+Put to a controller
 ```ruby
   def new
     @site = Site.new
@@ -142,15 +139,6 @@ In your content model put include Cfror::Data
 ```ruby
 class Publication < ActiveRecord::Base
   include Cfror::Data
-  #or
-  # has_many :boolean_datums, as: :dataable, class_name: Cfror::Boolean, dependent: :destroy
-  # has_many :date_datums, as: :dataable, class_name: Cfror::Date, dependent: :destroy
-  # has_many :datetime_datums, as: :dataable, class_name: Cfror::Datetime, dependent: :destroy
-  # has_many :image_datums, as: :dataable, class_name: Cfror::Image, dependent: :destroy
-  # has_many :integer_datums, as: :dataable, class_name: Cfror::Integer, dependent: :destroy
-  # has_many :option_datums, as: :dataable, class_name: Cfror::Option, dependent: :destroy
-  # has_many :string_datums, as: :dataable, class_name: Cfror::String, dependent: :destroy
-  # has_many :text_datums, as: :dataable, class_name: Cfror::Text, dependent: :destroy
 
   belongs_to :site
 end
@@ -168,7 +156,7 @@ In form view
             = render partial: 'layouts/cfror/field', locals:{field: field, model: @publication}
 
 ```
-Partial layouts/cfror/field contains fields generator. You can change it on your own.
+Partial layouts/cfror/field contains fields generator. Feel free to change it.
 
 ```erb
 
@@ -205,14 +193,90 @@ Partial layouts/cfror/field contains fields generator. You can change it on your
   </label>
 ```
 
+And create or update method you should add your_model.save_cfror_fields(params[:cfror_fields])
 
-## It is alfa version now!
+```ruby
 
+ # POST /publications
+  # POST /publications.json
+  def create
+    @publication = Publication.new(publication_params)
+
+    respond_to do |format|
+      if @publication.save
+        @publication.save_cfror_fields(params[:cfror_fields])
+
+        format.html { redirect_to @publication, notice: 'Publication was successfully created.' }
+        format.json { render :show, status: :created, location: @publication }
+      else
+        format.html { render :new }
+        format.json { render json: @publication.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /publications/1
+  # PATCH/PUT /publications/1.json
+  def update
+    respond_to do |format|
+      if @publication.update(publication_params)
+        @publication.save_cfror_fields(params[:cfror_fields])
+
+        format.html { redirect_to @publication, notice: 'Publication was successfully updated.' }
+        format.json { render :show, status: :ok, location: @publication }
+      else
+        format.html { render :edit }
+        format.json { render json: @publication.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+```
+
+### Show data
+
+Show view
+
+```ruby
+  - @publication.value_fields_for(:site).each do |field|
+    p
+      = field.title
+      br
+      = field.value_object.body
+      /or if you need to only values
+      = field.value
+
+```
+
+value_fields_for method sets value_object on each object. The argument is a symbol of relation fields contains model.
+I.e. there is belongs_to :site in Publication model.
+
+### Images processing
+
+If you want to have CarrierWave images processing you mast create app/uploaders/cfror/image_uploader.rb file and put CarrierWave code like below.
+
+```ruby
+# encoding: utf-8
+class ImageUploader
+  # Include RMagick or MiniMagick support:
+  # include CarrierWave::RMagick
+   include CarrierWave::MiniMagick
+
+
+   # Create different versions of your uploaded files:
+   version :thumb do
+     process :resize_to_fit => [50, 50]
+   end
+end
+```
+
+The file is regular CarrierWave uploader.
 
 ## TODO
 
 - Make a view jquery helper for rendering nested models
 - Make fields helper by field types
+- Tests
 
 ## Contributing
 

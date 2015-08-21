@@ -7,7 +7,7 @@
     <%- when 'string' %>
        <input type="text" name="cfror_fields[<%= field.id %>]" value="<%= field.strings.find_by(dataable: model).try(:body) %>" id="cfror_fields_<%=field.id%>" class="cfror_text_input"/>
     <%- when 'boolean' %>
-       <input type="checkbox" name="cfror_fields[<%= field.id %>]" value="<%= field.booleans.find_by(dataable: model).try(:body) %>" id="cfror_fields_<%=field.id%>" class="cfror_checkbox_input"/>
+       <input type="checkbox" name="cfror_fields[<%= field.id %>]" value="1" <%= field.booleans.find_by(dataable: model).try(:body) ? "checked" : '' %> id="cfror_fields_<%=field.id%>" class="cfror_checkbox_input"/>
     <%- when 'text' %>
        <textarea name="cfror_fields[<%= field.id %>]" class="cfror_textarea" id="cfror_fields_<%=field.id%>"><%= field.texts.find_by(dataable: model).try(:body) %></textarea>
     <%- when 'date' %>

@@ -40,5 +40,25 @@ module Cfror
       has_many :text_datums, as: :dataable, class_name: Cfror::Text, dependent: :destroy
       #accepts_nested_attributes_for :text_datums, allow_destroy: true, reject_if: :all_blank
     end
+
+    #save fields value
+    def save_cfror_fields(fields)
+      fields.each do |field, value|
+        field = Cfror::Field.find(field)
+        field.save_value!(self, value)
+      end
+    end
+
+    #set values for fields
+    #@param source is symbol of relation method contains include Cfror::Fields
+    def value_fields_for(source)
+      fields = self.send(source).fields
+
+      fields.each do |i|
+        i.set_value_for(self)
+      end
+
+      fields
+    end
   end
 end
