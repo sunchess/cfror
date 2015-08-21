@@ -156,7 +156,7 @@ In form view
             = render partial: 'layouts/cfror/field', locals:{field: field, model: @publication}
 
 ```
-Partial layouts/cfror/field contains fields generator. Feel free to change it.
+The partial layouts/cfror/field contains fields generator. Feel free to change it.
 
 ```erb
 
@@ -243,12 +243,12 @@ Show view
       = field.title
       br
       = field.value_object.body
-      /or if you need to only values
+      /or if you need only values
       = field.value
 
 ```
 
-value_fields_for method sets value_object on each object. The argument is a symbol of relation fields contains model.
+The method value_fields_for method sets value_object on each object. The argument is a symbol of relation fields contains model.
 I.e. there is belongs_to :site in Publication model.
 
 ### Images processing
@@ -257,7 +257,7 @@ If you want to have CarrierWave images processing you mast create app/uploaders/
 
 ```ruby
 # encoding: utf-8
-class ImageUploader
+class Cfror::ImageUploader
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
    include CarrierWave::MiniMagick
