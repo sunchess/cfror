@@ -13,7 +13,7 @@ Add custom fields functional to your Rails app!
   rake db:migrate
 ```
 
-And now you can put to a model include Cfror::Fields.
+And now you can put to model string "include Cfror::Fields".
 
 ```ruby
   class Site < ActiveRecord::Base
@@ -21,7 +21,7 @@ And now you can put to a model include Cfror::Fields.
   end
 ```
 
-Put to a controller
+Put to controller
 ```ruby
   def new
     @site = Site.new
@@ -34,6 +34,7 @@ Put to a controller
   end
 ```
 
+Cfror::Field.field_types contains all support types. This is a simple AR enum.
 
 And in view (real slim and angular example)
 
@@ -43,51 +44,58 @@ And in view (real slim and angular example)
         section
           label.input
             = f.text_field :title
-      .well.well-light.well-sm.no-margin.no-padding.mb20px
-        .smart-form
-          h3.padding-20 Fields
-          fieldset.padding-20 ng-repeat="field in fields" ng-hide="field._destroy" ng-init='pidx = $index'
-            = f.fields_for :fields, Cfror::Field.new, child_index: '{{pidx}}'do |ef|
-              = ef.hidden_field :id, 'ng-if'=>"field.id", 'value'=>'{{field.id}}'
-              = ef.hidden_field :_destroy, 'ng-if'=>"field._destroy", 'value'=>'{{field._destroy}}'
-              section.row.no-margin
-                .col-sm-6.col-md-4 style="padding-right: 20px"
-                  = ef.label :title, class: 'label'
-                  label.input
-                    = ef.text_field :title, 'ng-model' => 'field.title'
-              section.row.no-margin
-                .col-sm-6.col-md-4 style="padding-right: 20px"
-                  = ef.label :name, class: 'label'
-                  label.input
-                    = ef.text_field :name, 'ng-model' => 'field.name'
-              section.row.no-margin
-                .col-sm-6.col-md-4 style="padding-right: 20px"
-                  = ef.label :field_type, class: 'label'
-                  label.select
-                    = ef.select :field_type, Cfror::Field.field_types.map{|k, v| [t("cfror.field_type.#{k}"), k]}, {}, {'ng-model' => 'field.field_type'}
-                    i
 
-              section.no-margin[ng-if="field.field_type == 'option'"]
-                h3.padding-20 Options
-                div ng-repeat="select_option in field.select_options = (field.select_options || [{}])" ng-hide="select_option._destroy" ng-init='cidx = $index'
-                  = ef.fields_for :select_options, Cfror::SelectOption.new, child_index: '{{cidx}}' do |df|
-                    = df.hidden_field :id, 'ng-if'=>"select_option.id", 'value'=>'{{select_option.id}}'
-                    = df.hidden_field :_destroy, 'ng-if'=>"select_option._destroy", 'value'=>'{{select_option._destroy}}'
-                    .row.no-margin
-                      .col-sm-5.col-md-4.pr20px
-                        section
-                          = df.label :body, class: 'label'
-                          label.input
-                            = df.text_field :body, 'ng-model' => 'select_option.body'
-                      .col-sm-2.col-md-2
-                        label.label
-                          | &nbsp;
-                        a.btn.btn-danger.btn-plus.mr10px ng-show="$parent.field.select_options.length>1" ng-click="select_option._destroy = true" -
-                a.btn.btn-success ng-show="$last" ng-click="$parent.field.select_options.push({})" Add
+        h3.padding-20 Fields
+        fieldset ng-repeat="field in fields" ng-hide="field._destroy" ng-init='pidx = $index'
 
-            a.btn.btn-danger.pull-right ng-show="fields.length>1" ng-click="field._destroy = true" Delete
-          footer
-            a.btn.btn-success ng-click="fields.push({})" Add one
+          = f.fields_for :fields, Cfror::Field.new, child_index: '{{pidx}}'do |ef|
+            = ef.hidden_field :id, 'ng-if'=>"field.id", 'value'=>'{{field.id}}'
+            = ef.hidden_field :_destroy, 'ng-if'=>"field._destroy", 'value'=>'{{field._destroy}}'
+
+            section
+              = ef.label :title, class: 'label'
+              label.input
+                /human title
+                = ef.text_field :title, 'ng-model' => 'field.title'
+
+            section
+              /machin title
+              = ef.label :name, class: 'label'
+              label.input
+                = ef.text_field :name, 'ng-model' => 'field.name'
+
+            section
+              = ef.label :field_type, class: 'label'
+              label.select
+                /t - translate types
+                = ef.select :field_type, Cfror::Field.field_types.map{|k, v| [t("cfror.field_type.#{k}"), k]}, {}, {'ng-model' => 'field.field_type'}
+
+
+            /add select options only for type option
+            section.no-margin[ng-if="field.field_type == 'option'"]
+
+              h3 Options
+
+              div ng-repeat="select_option in field.select_options = (field.select_options || [{}])" ng-hide="select_option._destroy" ng-init='cidx = $index'
+                = ef.fields_for :select_options, Cfror::SelectOption.new, child_index: '{{cidx}}' do |df|
+                  = df.hidden_field :id, 'ng-if'=>"select_option.id", 'value'=>'{{select_option.id}}'
+                  = df.hidden_field :_destroy, 'ng-if'=>"select_option._destroy", 'value'=>'{{select_option._destroy}}'
+
+                  .row
+                    .col-sm-5.col-md-4.pr20px
+                      section
+                        = df.label :body, class: 'label'
+                        label.input
+                          = df.text_field :body, 'ng-model' => 'select_option.body'
+                    .col-sm-2.col-md-2
+                      label.label
+                        | &nbsp;
+                      a.btn.btn-danger.btn-plus.mr10px ng-show="$parent.field.select_options.length>1" ng-click="select_option._destroy = true" -
+              a.btn.btn-success ng-show="$last" ng-click="$parent.field.select_options.push({})" Add
+
+          a.btn.btn-danger.pull-right ng-show="fields.length>1" ng-click="field._destroy = true" Delete
+        footer
+          a.btn.btn-success ng-click="fields.push({})" Add one
 
 
       = f.submit
