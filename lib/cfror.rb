@@ -51,8 +51,10 @@ module Cfror
 
     #set values for fields
     #@param source is symbol of relation method contains include Cfror::Fields
-    def value_fields_for(source)
+    def value_fields_for(source, order=nil)
       fields = self.send(source).fields
+
+      fields = fields.order(order) if order
 
       fields.each do |i|
         i.set_value_for(self)
